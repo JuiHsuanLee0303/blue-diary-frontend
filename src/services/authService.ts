@@ -45,6 +45,7 @@ export const useAuthService = () => {
   const login = async (email: string, password: string) => {
     loading.value = true;
     error.value = null;
+    console.log(API_URL);
     try {
       const response = await axios.post<AuthResponse>(
         `${API_URL}/api/auth/login`,
