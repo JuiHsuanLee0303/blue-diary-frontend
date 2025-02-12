@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16" # 确保使用与本地开发一致的 Node.js 版本
+          node-version: "20.14.0" # 确保使用与本地开发一致的 Node.js 版本
 
       - name: Install dependencies
         run: npm install
