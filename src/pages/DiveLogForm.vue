@@ -17,7 +17,7 @@
           {{ error }}
         </v-alert>
 
-        <v-form ref="form" @submit.prevent="handleSubmit">
+        <v-form ref="form">
           <v-card class="pa-6">
             <!-- 基本資訊 -->
             <div class="form-section">
@@ -530,12 +530,12 @@
             <!-- 操作按鈕 -->
             <div class="d-flex gap-4 mt-6">
               <v-btn
-                type="submit"
                 color="primary"
                 size="large"
                 prepend-icon="mdi-check"
                 :loading="isSubmitting"
                 class="mr-4"
+                @click="handleSubmit"
               >
                 上傳日誌
               </v-btn>

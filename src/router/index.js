@@ -2,6 +2,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
+const baseUrl = import.meta.env.BASE_URL || "/";
+
 const routes = [
   {
     path: "/",
@@ -50,7 +52,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(baseUrl),
   routes,
 });
 

@@ -8,6 +8,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
+const baseUrl = import.meta.env.BASE_URL || "/";
+
 const routes = [
   {
     path: "/",
@@ -30,7 +32,6 @@ const routes = [
     path: "/dive-log/:id/edit",
     name: "dive-log-edit",
     component: () => import("@/pages/DiveLogForm.vue"),
-    props: true,
     meta: { requiresAuth: true },
   },
   {
@@ -57,7 +58,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(baseUrl),
   routes,
 });
 
