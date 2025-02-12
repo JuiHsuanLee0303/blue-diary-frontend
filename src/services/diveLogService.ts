@@ -75,6 +75,7 @@ export const useDiveLogService = () => {
   };
 
   const getDiveLogs = async () => {
+    console.log(API_URL);
     loading.value = true;
     error.value = null;
     try {
