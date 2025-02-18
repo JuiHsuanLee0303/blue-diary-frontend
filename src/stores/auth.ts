@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import type { User } from "../services/authService";
+import { useAuthService } from "@/services/authService";
 
 export const useAuthStore = defineStore("auth", () => {
   const isInitialized = ref(false);
   const user = ref<User | null>(null);
   const token = ref<string | null>(null);
   const refreshToken = ref<string | null>(null);
+  const authService = useAuthService();
 
   const isAuthenticated = computed(() => !!token.value);
 
@@ -49,6 +51,17 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.removeItem("user");
   };
 
+  // 刷新用戶資料
+  const refreshUserData = async () => {
+    try {
+      const userData = await authService.getUserProfile();
+      user.value = userData;
+      localStorage.setItem("user", JSON.stringify(userData));
+    } catch (error) {
+      console.error("刷新用戶資料失敗:", error);
+    }
+  };
+
   return {
     isInitialized,
     user,
@@ -58,5 +71,6 @@ export const useAuthStore = defineStore("auth", () => {
     initializeAuth,
     setAuth,
     clearAuth,
+    refreshUserData,
   };
 });

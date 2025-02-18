@@ -34,8 +34,11 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="handleLogout">
-                <v-list-item-title>登出</v-list-item-title>
+              <v-list-item to="/profile" prepend-icon="mdi-account">
+                個人資料
+              </v-list-item>
+              <v-list-item prepend-icon="mdi-logout" @click="handleLogout">
+                登出
               </v-list-item>
             </v-list>
           </v-menu>
@@ -57,6 +60,9 @@
         </v-list-item>
         <v-list-item to="/dive-map" prepend-icon="mdi-map">
           潛點地圖
+        </v-list-item>
+        <v-list-item to="/profile" prepend-icon="mdi-account">
+          個人資料
         </v-list-item>
         <template v-if="authStore.isAuthenticated">
           <v-list-item prepend-icon="mdi-logout" @click="handleLogout">

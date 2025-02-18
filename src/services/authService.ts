@@ -8,6 +8,14 @@ export interface User {
   uid: string;
   name: string;
   email: string;
+  certificates?: Certificate[];
+  diveCount?: number;
+}
+
+export interface Certificate {
+  system: string;
+  level: string;
+  url?: string;
 }
 
 export interface AuthResponse {
@@ -76,10 +84,56 @@ export const useAuthService = () => {
     }
   };
 
+  const getUserProfile = async () => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await axios.get(`${API_URL}/api/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (err: unknown) {
+      const error_response = err as ApiError;
+      error.value = error_response.response?.data?.error || "獲取用戶資料失敗";
+      throw error.value;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const updateProfile = async (data: {
+    name: string;
+    email: string;
+    certificates?: Certificate[];
+    currentPassword?: string;
+    newPassword?: string;
+  }) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await axios.put(`${API_URL}/api/profile`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (err: unknown) {
+      const error_response = err as ApiError;
+      error.value = error_response.response?.data?.error || "更新用戶資料失敗";
+      throw error.value;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     register,
     login,
     refreshToken,
+    getUserProfile,
+    updateProfile,
     loading,
     error,
   };
